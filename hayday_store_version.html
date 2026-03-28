@@ -18,7 +18,7 @@
       --border-color: #e5e7eb;
       --input-bg: #ffffff;
       --header-bg: rgba(255, 255, 255, 0.98);
-      --primary: #708090;
+      --primary: #6b7d73;
       --chip-bg: #f3f4f6;
     }
 
@@ -232,14 +232,28 @@
       background: var(--bg-card);
       border: 1.5px solid var(--border-color);
       border-radius: 14px;
-      padding: 12px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      min-height: 176px;
+      min-height: 165px;
       position: relative;
       overflow: hidden;
+    }
+
+    .level-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 3px 6px;
+      border-radius: 999px;
+      line-height: 1;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
     .product-img-container {
@@ -284,9 +298,9 @@
       width: 100%;
       font-size: 12px;
       font-weight: 900;
-      line-height: 1.15;
+      line-height: 1.2;
       text-align: center;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       min-height: 28px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -441,7 +455,7 @@
     <div id="header-collapsible" class="max-w-4xl mx-auto p-3 space-y-3">
       <div class="flex justify-between items-center gap-3">
         <div class="flex items-center gap-2">
-          <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-black text-xs">Y2</div>
+          <div class="w-8 h-8 bg-[#6b7d73] rounded-lg flex items-center justify-center text-white font-black text-xs">Y2</div>
           <h1 class="text-sm font-black">منتجات إختيارية - نموذج أولي</h1>
         </div>
         <div class="flex items-center gap-2">
@@ -499,14 +513,14 @@
         </div>
 
         <div class="control-block distribute-block">
-          <span class="control-label">التوزيع التلقائي للمنتجات</span>
+          
           <div class="distribute-row">
             <select id="distribute-scope" class="compact-input" style="max-width:150px;">
               <option value="visible" selected>المنتجات الظاهرة</option>
               <option value="all">كل المنتجات</option>
             </select>
-            <button id="distribute-btn" type="button" title="توزيع تلقائي للكمية على المنتجات بالتساوي" class="h-[38px] px-4 bg-black text-white rounded-lg flex items-center justify-center flex-1 font-black text-[10px]" style="border:none;cursor:pointer;min-width:180px;">
-              توزيع تلقائي للكمية على المنتجات بالتساوي
+            <button id="distribute-btn" type="button" title="توزيع الكمية بالتساوي" class="h-[38px] px-3 bg-[#6b7d73] text-white rounded-lg flex items-center justify-center flex-1 font-black text-[12px]" style="border:none;cursor:pointer;min-width:60px;">
+              ⚖️
             </button>
           </div>
         </div>
@@ -544,7 +558,7 @@
     </div>
   </footer>
 
-  <div id="modal-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-md z-[300] hidden items-center justify-center p-4">
+  <div id="modal-overlay" class="fixed inset-0 bg-[#6b7d73]/70 backdrop-blur-md z-[300] hidden items-center justify-center p-4">
     <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
       <div class="flex justify-between items-start mb-4">
         <h2 class="text-lg font-black">ملخص الطلب</h2>
@@ -555,7 +569,7 @@
         <div class="flex justify-between text-xs mb-1"><span class="opacity-60">عدد أنواع المنتجات المختارة:</span><span id="product-count" class="font-black">0</span></div>
         <div class="flex justify-between text-xs mb-3"><span class="opacity-60">إجمالي الكمية:</span><span id="total-qty-modal" class="font-black">0</span></div>
       </div>
-      <button id="close-modal-btn" type="button" class="mt-2 w-full py-3 bg-black text-white rounded-2xl font-black text-sm" style="border:none;cursor:pointer;">إغلاق</button>
+      <button id="close-modal-btn" type="button" class="mt-2 w-full py-3 bg-[#6b7d73] text-white rounded-2xl font-black text-sm" style="border:none;cursor:pointer;">إغلاق</button>
     </div>
   </div>
 
@@ -571,16 +585,16 @@
     };
 
     const productData = [
-      { name: { en: 'Bread', ar: 'خبز' }, level: 2, machine: 'Bakery', emoji: '🍞' },
-      { name: { en: 'Pancakes', ar: 'فطائر' }, level: 9, machine: 'Bakery', emoji: '🥞' },
-      { name: { en: 'Cookie', ar: 'كوكيز' }, level: 10, machine: 'Bakery', emoji: '🍪' },
-      { name: { en: 'Bacon and Eggs', ar: 'بيض ولحم' }, level: 11, machine: 'BBQ Grill', emoji: '🍳' },
-      { name: { en: 'Cheese', ar: 'جبن' }, level: 12, machine: 'Dairy', emoji: '🧀' },
-      { name: { en: 'White Sugar', ar: 'سكر أبيض' }, level: 13, machine: 'Sugar Mill', emoji: '🍚' },
-      { name: { en: 'Carrot Pie', ar: 'فطيرة جزر' }, level: 14, machine: 'Pie Oven', emoji: '🥧' },
-      { name: { en: 'Pumpkin Pie', ar: 'فطيرة يقطين' }, level: 15, machine: 'Pie Oven', emoji: '🎃' },
-      { name: { en: 'Butter Popcorn', ar: 'فشار بالزبدة' }, level: 16, machine: 'Popcorn Pot', emoji: '🍿' },
-      { name: { en: 'Sweater', ar: 'سترة' }, level: 17, machine: 'Loom', emoji: '🧥' }
+      { name: { en: 'Bread', ar: 'خبز' }, level: 2, machine: 'Bakery', emoji: '🍞', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Bread.png' },
+      { name: { en: 'Pancakes', ar: 'فطائر' }, level: 9, machine: 'Bakery', emoji: '🥞', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Pancake.png' },
+      { name: { en: 'Cookie', ar: 'كوكيز' }, level: 10, machine: 'Bakery', emoji: '🍪', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Cookie.png' },
+      { name: { en: 'Bacon and Eggs', ar: 'بيض ولحم' }, level: 11, machine: 'BBQ Grill', emoji: '🍳', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Bacon_and_Eggs.png' },
+      { name: { en: 'Cheese', ar: 'جبن' }, level: 12, machine: 'Dairy', emoji: '🧀', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Cheese.png' },
+      { name: { en: 'White Sugar', ar: 'سكر أبيض' }, level: 13, machine: 'Sugar Mill', emoji: '🍚', img: 'https://hayday.fandom.com/wiki/Special:FilePath/White_Sugar.png' },
+      { name: { en: 'Carrot Pie', ar: 'فطيرة جزر' }, level: 14, machine: 'Pie Oven', emoji: '🥧', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Carrot_Pie.png' },
+      { name: { en: 'Pumpkin Pie', ar: 'فطيرة يقطين' }, level: 15, machine: 'Pie Oven', emoji: '🎃', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Pumpkin_Pie.png' },
+      { name: { en: 'Butter Popcorn', ar: 'فشار بالزبدة' }, level: 16, machine: 'Popcorn Pot', emoji: '🍿', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Buttered_Popcorn.png' },
+      { name: { en: 'Sweater', ar: 'سترة' }, level: 17, machine: 'Loom', emoji: '🧥', img: 'https://hayday.fandom.com/wiki/Special:FilePath/Sweater.png' }
     ];
 
     const officialImageBases = [
@@ -662,7 +676,7 @@
         lvl: item.level,
         machine: item.machine,
         emoji: item.emoji,
-        imgCandidates: getOfficialImageCandidates({ name: item.name.en }),
+        imgCandidates: [item.img],
         machineCandidates: getOfficialMachineCandidates(item.machine)
       }))
       .sort((a, b) => a.lvl - b.lvl || a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
@@ -703,9 +717,14 @@
       badge.appendChild(createImageWithOfficialFallback(product.machineCandidates, product.machine, 'machine-badge-img', '⚙️'));
       card.appendChild(badge);
 
+      const levelBadge = document.createElement('div');
+      levelBadge.className = 'level-badge';
+      levelBadge.textContent = `Lv ${product.lvl}`;
+      card.appendChild(levelBadge);
+
       const imgWrap = document.createElement('div');
       imgWrap.className = 'product-img-container';
-      imgWrap.appendChild(createImageWithOfficialFallback(product.imgCandidates, product.name, 'product-img', product.emoji));
+      imgWrap.appendChild(createImageWithOfficialFallback(product.imgCandidates, product.name.en, 'product-img', product.emoji));
       card.appendChild(imgWrap);
 
       const nameEl = document.createElement('div');
@@ -713,10 +732,7 @@
       nameEl.textContent = product.name[currentLang];
       card.appendChild(nameEl);
 
-      const meta = document.createElement('div');
-      meta.className = 'product-meta';
-      meta.innerHTML = `<span class="meta-chip">${machineTranslations[product.machine]?.[currentLang] || product.machine}</span><span class="meta-chip">Lv ${product.lvl}</span>`;
-      card.appendChild(meta);
+      
 
       const qtyBox = document.createElement('div');
       qtyBox.className = 'qty-box';
@@ -919,9 +935,7 @@
 
     function toggleUI() {
       uiVisible = !uiVisible;
-      el('machines-container').classList.toggle('ui-hide-content', !uiVisible);
       el('header-collapsible').classList.toggle('ui-hide-content', !uiVisible);
-      el('main-footer').classList.toggle('ui-hide-content', !uiVisible);
     }
 
     function setupEvents() {
